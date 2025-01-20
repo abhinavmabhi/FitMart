@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+<div class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-wrap -mx-4">
+      <!-- Product Images -->
+      <div class="w-full md:w-1/2 px-4 mb-8">
+        {% if details.picture %}
+        <img src="{{ details.picture.url }}" alt="Product"
+          class="w-full h-62 overflow-hidden rounded-lg shadow-md mb-4 shadow-lg" id="mainImage">
+        {% endif %}
+      </div>
+
+      <!-- Product Details -->
+      <div class="w-full md:w-1/2 px-4">
+        <h2 class="text-3xl font-bold mb-2">{{ details.title }}</h2>
+        <p class="text-gray-600 mb-4">{{ details.Tag_obj }}</p>
+        <div class="mb-4">
+          <span class="text-2xl font-bold text-black">₹{{ details.price }} </span>
+          <span class="text-xl font-bold mr-2 line-through text-gray-600">(₹{{ details.price_without_offer }})</span>
+        </div>
+
+        <p class="text-gray-700 mb-6">{{ details.description }}</p>
+
+        <div class="mb-6">
+          <p>
+            {{ details.Equipment_category_obj }}
+          </p>
+        </div>
+
+        <a href="{% url 'add-to-cart-equipment' details.id %}">
+          <button type="submit"
+            class="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+            </svg>
+            Add to Cart
+          </button>
+        </a>
+
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Available Flavours:</h3>
+          <ul class="list-disc list-inside text-gray-700">
+            {% for flavour in details.flavour_obj.all %}
+            <li>{{ flavour.name }}</li> <!-- Assuming Flavour model has a 'name' field -->
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function changeImage(src) {
+      document.getElementById('mainImage').src = src;
+    }
+  </script>
+</div>
+{% endblock %}

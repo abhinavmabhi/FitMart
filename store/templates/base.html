@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- tailwind  -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS  -->
+    <script>
+        AOS.init();
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+    <div class="bg-gray-100 relative overflow-hidden">
+
+        <div class="flex bg-gray-200">
+            <!-- Sidebar -->
+            <div class="fixed top-0 left-0 bg-gray-700 text-white w-56 h-full overflow-y-auto transition-transform transform -translate-x-full ease-in-out duration-1000 z-50"
+                id="sidebar">
+                <!-- Sidebar Content -->
+                <div class="p-4">
+                    <h1 class="text-2xl font-semibold" style="font-style: italic;">FITMART</h1>
+
+                    <hr>
+                    <ul class="mt-4">
+                        <li class="mb-2"><a href="{%url 'customer_page'%}" class="block hover:text-indigo-400">Home</a>
+                        </li>
+                        <li class="mb-2"><a href="{%url 'list-orders'%}" class="block hover:text-indigo-400">Orders</a>
+                        </li>
+                        <li class="mb-2"><a href="{%url 'cart-list'%}" class="block hover:text-indigo-400">Cart</a></li>
+                        
+                    </ul>
+                    <button type="button" class="text-white text-sm py-2.5 px-4 rounded-full bg-red-500 hover:bg-red-700 mt-4">
+
+                        <a href="{%url 'logout'%}" class="block hover:text-indigo-400">Logout</a>
+
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 flex flex-col overflow-hidden">
+
+
+                <!-- Navbar -->
+                <div class="bg-gray-800 text-white shadow">
+                    <div class="container mx-auto">
+                        <div class="flex justify-between items-center py-4 px-2">
+                            <h1 class="text-xl font-semibold" style="font-style: italic;">FITMART</h1>
+
+                            <!-- bmi  -->
+
+                            <a href="{% url 'bmi' %}">
+                                <button class="py-2 relative border-2 border-transparent text-white rounded-full hover:text-gray-300 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+                                    
+                                    
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.5 4h13a1 1 0 011 1v14a1 1 0 01-1 1h-13a1 1 0 01-1-1V5a1 1 0 011-1zM8 7h8M8 11h8M10 15h4M12 18v-3m-6 3h12" />
+                                      </svg>
+                                    
+                                  </button>
+                                </a>
+    
+
+                            <!-- cart -->
+
+                            <a href="{% url 'cart-list' %}">
+                            <button class="py-2 relative border-2 border-transparent text-white rounded-full hover:text-gray-300 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Cart">
+                                
+                                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                
+                                
+                                <span class="absolute inset-0 object-right-top -mr-6">
+                                  <div class="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
+                                    
+                                        <i class="fas fa-shopping-cart"></i>
+                                        {% if cart_item_count > 0 %}
+                                            <span class="cart-item-count">{{ cart_item_count }}</span>
+                                        {% else %}
+                                            <span class="cart-item-count">0</span>
+                                        {% endif %}
+                                    
+                                  </div>
+                                </span>
+                              </button>
+                            </a>
+
+                            <!-- search box  -->
+
+
+
+                            <div class="flex justify-center">
+                                <div class="relative">
+                                    <!-- Search Input -->
+                                    <form action="">
+                                        <input type="text" name="search-text"
+                                            class="w-60 text-black px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="Search for products...">
+
+                                        <!-- Search Button -->
+                                        <button class="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
+                                            Search
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <button class="text-gray-500 hover:text-gray-600" id="open-sidebar">
+                                <svg class="w-12 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Body -->
+
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" id="sidebar-overlay"></div>
+
+        <script>
+            const sidebar = document.getElementById('sidebar');
+            const openSidebarButton = document.getElementById('open-sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+            // Open Sidebar
+            openSidebarButton.addEventListener('click', () => {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.remove('hidden');
+            });
+
+            // Close Sidebar
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            });
+
+            // Close Sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !openSidebarButton.contains(e.target) && !sidebarOverlay.contains(e.target)) {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                }
+            });
+        </script>
+    </div>
+
+    {%block main_block%}
+
+    {%endblock%}
+
+
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

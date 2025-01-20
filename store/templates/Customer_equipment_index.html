@@ -1,0 +1,127 @@
+{%extends 'base.html'%}
+
+{%block main_block%}
+
+<div class="container">
+    <div class="row">
+        <!-- toggle  -->
+
+        <div class="btn-group justify-content-center mt-4 mb-4" role="group"
+            aria-label="Basic radio toggle button group">
+            <!-- Supplement Button -->
+            <a href="{% url 'customer-suppliment-index' %}"
+                class="btn rounded-full btn-outline-danger border-danger border-2">
+                
+                Supplement
+            </a>
+
+            <!-- Equipment Button -->
+            <a href="{% url 'customer-equipment-index' %}"
+                class="btn rounded-full btn-outline-dark border-dark border-2">
+                
+                Equipment
+            </a>
+        </div>
+
+        <!-- coloum  -->
+
+        {%for p in eqipment_data%}
+
+
+        <div class="col-4">
+
+            <a href="{%url 'customer-equipment-details' p.id%}"
+                class="relative block rounded-tr-3xl border border-gray-100 ">
+
+                <div data-aos="flip-left">
+                    <div class="p-4">
+                        {% if p.stock < 5 %} <span
+                            class="animate-fade-in transform hover:scale-110 transition-all duration-500 w-48 absolute -right-px -top-px rounded-bl-3xl rounded-tr-3xl bg-red-600 px-3 py-3 font-medium uppercase tracking-widest text-white">
+                            <p class="animate-pulse font-bold text-xs italic">Hurry up! Limited stock</p>
+                            </span>
+                            {% else %}
+                            <span
+                                class="animate-fade-in transform hover:scale-110 transition-all duration-500 absolute -right-px -top-px rounded-bl-3xl rounded-tr-3xl bg-green-700 px-6 py-4 font-medium uppercase tracking-widest text-white">
+                                <p class="text-xs italic">stock Available</p>
+                            </span>
+                            {% endif %}
+
+                            {%if p.picture%}
+                            <img src="{{p.picture.url}}" alt=""
+                                class="h-52 w-full rounded-tr-3xl object-cover overflow-hidden" />
+                            {%endif%}
+
+                            <p class="mt-2 text-pretty text-gray-700 ">
+                            <div class="mb-2 pl-2">
+                                <!-- Price -->
+                                <strong class="text-xl font-medium text-gray-900">₹ {{p.price}}</strong><br>
+
+
+
+                                <!-- Title -->
+                                <h2 class="text-lg font-medium text-gray-900">{{p.title}}</h2>
+                            </div>
+                            <hr>
+
+                            <!-- Description Tooltip -->
+                            <div class="relative flex items-center group ml-2">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <div class="absolute left-0 hidden ml-6 group-hover:flex">
+                                    <div class="w-3 h-3 -mr-2 rotate-45 bg-black"></div>
+                                    <span class="relative z-10 p-2 text-xs text-white bg-black shadow-lg">
+                                        {{p.description}}
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="pl-2 pb-3">
+                                
+                                    {% if p.weight %}
+
+                                    {{ p.weight }} kg <br>
+
+                                    {% else %}
+
+                                    <p>NA</p>
+
+                                    {% endif %}
+
+                                    Brand: {{p.brand_obj}} <br>
+
+                                
+
+
+
+                            </div>
+                            </p>
+
+                            <!-- Bottom -->
+
+                            <a class="Button rounded-lg bg-yellow-500 text-center w-full group relative inline-block overflow-hidden border border-yellow-600 px-8 py-3 focus:outline-none focus:ring"
+                                href="{%url 'customer-equipment-details' p.id%}">
+                                <span
+                                    class="absolute inset-x-0 bottom-0 h-[2px] bg-red-700 transition-all group-hover:h-full group-active:bg-black"></span>
+
+                                <span
+                                    class=" relative text-sm font-medium text-black-600 transition-colors group-hover:text-white">
+                                    View
+                                </span>
+                            </a>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        {%endfor%}
+    </div>
+</div>
+</div>
+
+{%endblock%}

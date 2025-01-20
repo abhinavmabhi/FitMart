@@ -1,0 +1,108 @@
+{%extends 'base.html'%}
+
+{%block main_block%}
+<div class="bg-gray-100 h-screen py-8">
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-semibold mb-4">Shopping Cart</h1>
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left font-semibold">Product</th>
+                                <th class="text-left font-semibold">Price</th>
+                                <th class="text-left font-semibold">Quantity</th>
+                                <th class="text-left font-semibold">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data %}
+                            <tr>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        {% if item.suppliment_obj %}
+                                        <img class="h-16 w-16 mr-4" src="{{ item.suppliment_obj.picture.url }}"
+                                            alt="{{ item.suppliment_obj.title }}">
+                                        <span class="font-semibold">{{ item.suppliment_obj.title }}</span>
+                                        {% elif item.equipment_obj %}
+                                        <img class="h-16 w-16 mr-4" src="{{ item.equipment_obj.picture.url }}"
+                                            alt="{{ item.equipment_obj.title }}">
+                                        <span class="font-semibold">{{ item.equipment_obj.title }}</span>
+                                        {% else %}
+                                        No Image
+                                        {% endif %}
+                                    </div>
+                                <!-- </td> -->
+                                <!-- <td class="py-4">
+                                    {{ item.selected_flavour.name }}
+                                </td> -->
+                                <td class="py-4">
+                                    {% if item.suppliment_obj %}
+                                    ₹{{ item.suppliment_obj.price }}
+                                    {% elif item.equipment_obj %}
+                                    ₹{{ item.equipment_obj.price }}
+                                    {% endif %}
+                                </td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        
+                                        <span class="text-center w-8 ml-3">{{ item.quantity }}</span>
+
+                                    </div>
+                                </td>
+                                <td class="py-4">
+                                    ₹{{ item.total_price }}
+                                </td>
+                                <td class="py-4">
+                                    <a href="{%url 'cart-item-delete' item.id%}">
+                                        <button
+                                            class="text-slate-800 w-16 hover:text-red-500 text-sm bg-white hover:bg-slate-100 font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                </svg>
+                                            </span>
+
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="py-4 text-center">No items in your cart.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="md:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold mb-4">Summary</h2>
+                    <div class="flex justify-between mb-2">
+                        <span>Item Total</span>
+                        <span>₹{{ total }}</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Discound</span>
+                        <span>₹{{ discound }}</span> <!-- You can add taxes logic if required -->
+                    </div>
+
+                    <hr class="my-2">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Final Total</span>
+                        <span class="font-semibold">₹{{ subtotal }}</span>
+                    </div>
+                    <a href="{%url 'place-order'%}">
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block main_block %}
+
+<div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto bg-white">
+    {% for o in orders %}
+    <div class="flex justify-start item-start space-y-2 flex-col">
+        <h1 class="text-3xl text-black lg:text-4xl font-semibold leading-7 lg:leading-9">Order #{{ o.id }}</h1>
+        <p class="text-base text-gray-600 font-medium leading-6">{{ o.created_at|date:"jS F Y \a\\t h:i A" }}</p>
+    </div>
+    <div
+        class="mt-10 flex flex-col xl:flex-row justify-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
+        <div class="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
+            <div class="flex flex-col justify-start items-start bg-white px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+                <p class="text-lg md:text-xl text-black font-semibold leading-6 xl:leading-5">Customer’s Cart</p>
+                {% for oi in o.order_items.all %}
+                <div
+                    class="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
+                    <div class="pb-4 md:pb-8 w-full md:w-40">
+                        {% if oi.equipment_obj %}
+                        <img class="w-full hidden md:block" src="{{ oi.equipment_obj.picture.url }}"
+                            alt="{{ oi.equipment_obj.title }}" />
+                        {% elif oi.suppliment_obj %}
+                        <img class="w-full hidden md:block" src="{{ oi.suppliment_obj.picture.url }}"
+                            alt="{{ oi.suppliment_obj.title }}" />
+                        {% else %}
+                        <img class="w-full hidden md:block" src="/static/images/placeholder.png"
+                            alt="No image available" />
+                        {% endif %}
+                    </div>
+
+                    <div
+                        class="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
+                        <div class="w-full flex flex-col justify-start items-start space-y-8">
+                            {% if oi.equipment_obj %}
+                            <h3 class="text-xl text-black xl:text-2xl font-semibold leading-6">{{oi.equipment_obj.title}}</h3>
+                            <div class="flex justify-start items-start flex-col space-y-2">
+                                <p class="text-sm text-black leading-none"><span class="text-gray-500">Title: </span>{{oi.equipment_obj.title|default:"N/A" }}</p>
+                                <p class="text-sm text-black leading-none"><span class="text-gray-500">Weight: </span>{{oi.equipment_obj.weight|default:"N/A" }}</p>
+                                <p class="text-sm text-black leading-none"><span class="text-gray-500">Brand: </span>{{oi.equipment_obj.brand_obj|default:"N/A" }}</p>
+                            </div>
+                            {% elif oi.suppliment_obj %}
+                            <h3 class="text-xl text-black xl:text-2xl font-semibold leading-6">{{oi.suppliment_obj.title }}</h3>
+                            <div class="flex justify-start items-start flex-col space-y-2">
+                                <p class="text-sm text-black leading-none"><span class="text-gray-500">Flavor: </span>{{oi.suppliment_obj.flavor|default:"N/A" }}</p>
+                                <p class="text-sm text-black leading-none"><span class="text-gray-500">Weight: </span>{{oi.suppliment_obj.weight|default:"N/A" }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex justify-between space-x-8 items-start w-full">
+
+                            <p class="text-base text-black xl:text-lg leading-6">₹{{ oi.price }}</p>
+                            <p class="text-base text-black xl:text-lg leading-6">{{ oi.quantity }}</p>
+                    
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div
+            class="bg-white w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+            <h3 class="text-xl text-black font-semibold leading-5">Customer</h3>
+            <div
+                class="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
+                <div class="flex flex-col justify-start items-start flex-shrink-0">
+                    <div
+                        class="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
+                        <div class="flex justify-start items-start flex-col space-y-2">
+                            <p class="text-base text-black font-semibold leading-4 text-left">{{request.user}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
+                    <div
+                        class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row items-center md:items-start">
+                        <div
+                            class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
+                            <p class="text-base text-black font-semibold leading-4 text-center md:text-left">Shipping
+                                Address</p>
+                            <p class="w-48 lg:w-full text-gray-600 xl:w-48 text-center md:text-left text-sm leading-5">
+                                {{ o.address }}</p>
+
+                            <!-- Payment Status -->
+                            <p class="text-base text-black font-semibold leading-4 text-center md:text-left">Payment Status</p>
+                            
+                            <p class="mt-3 text-xs font-medium text-gray-700">
+                                {%if o.is_paid%}
+                
+                                      completed
+                
+                                {%else%}
+                
+                                  pending
+                
+                                {%endif%}
+                              </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

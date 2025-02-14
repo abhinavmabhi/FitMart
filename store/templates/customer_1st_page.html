@@ -1,37 +1,38 @@
-
-{%extends 'base.html'%} 
+{%extends 'base.html'%}
 {%block main_block%}
 
-<div class="hero text-center py-10">
-    <h1 class="text-4xl font-bold text-gray-800">Welcome to Fit Mart</h1>
-    <p class="text-lg text-gray-600 mt-4">Your one-stop shop for premium supplements and gym equipment.</p>
-    
-</div>
-                <!-- Content Body -->
-<div class="flex px-3 py-1 justify-center">
-    
-    <!-- Suppliment Animation -->
-    <a href="{% url 'customer-suppliment-index' %}" 
-        class="hover:bg-red-700 hover:text-white max-w-sm rounded-3xl overflow-hidden shadow-2xl m-8" 
-        data-aos="flip-up" 
-        data-aos-duration="1000">
-        <img class="w-full" src="https://www.theideal.com.au/wp-content/uploads/2020/04/shop.jpg" alt="Suppliment">
-        <div class="px-6 py-4">
-            <div class="font-bold text-center mb-2">Suppliment</div>
-        </div>
-    </a>
-    
-    <!-- Equipments Animation -->
-    <a href="{% url 'customer-equipment-index' %}" 
-        class="hover:bg-gray-800 hover:text-white max-w-sm rounded-3xl overflow-hidden shadow-2xl m-8" 
-        data-aos="flip-up" 
-        data-aos-duration="1000">
-        <img class="w-full" src="https://cdn.shoplightspeed.com/shops/643683/files/45605395/best-exercise-equipment-for-building-muscle.jpg" alt="Equipments">
-        <div class="px-6 py-4">
-            <div class="font-bold text-center mb-2">Equipments</div>
-        </div>
-    </a>
 
-</div>
+    <div class="hero text-center py-10">
+        <h1 class="text-4xl font-bold text-gray-800">Welcome to Fit Mart</h1>
+        <p class="text-lg text-gray-600 mt-4">Your one-stop shop for premium supplements and gym equipment.</p>
+
+    </div>
+    <!-- Content Body -->
+    <div class="flex px-3 py-1 justify-center">
+
+        <!-- Suppliment Animation -->
+        <a href="{% url 'customer-suppliment-index' %}"
+            class="hover:bg-red-700 hover:text-white max-w-sm rounded-3xl overflow-hidden shadow-2xl m-8"
+            data-aos="flip-up" data-aos-duration="1000">
+            <img class="w-full" src="https://www.theideal.com.au/wp-content/uploads/2020/04/shop.jpg" alt="Suppliment">
+            <div class="px-6 py-4">
+                <div class="font-bold text-center mb-2">Suppliment</div>
+            </div>
+        </a>
+
+        <!-- Equipments Animation -->
+        <a href="{% url 'customer-equipment-index' %}"
+            class="hover:bg-gray-800 hover:text-white max-w-sm rounded-3xl overflow-hidden shadow-2xl m-8"
+            data-aos="flip-up" data-aos-duration="1000">
+            <img class="w-full"
+                src="https://cdn.shoplightspeed.com/shops/643683/files/45605395/best-exercise-equipment-for-building-muscle.jpg"
+                alt="Equipments">
+            <div class="px-6 py-4">
+                <div class="font-bold text-center mb-2">Equipments</div>
+            </div>
+        </a>
+
+    </div>
+
 
 {%endblock%}

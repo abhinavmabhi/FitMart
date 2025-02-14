@@ -36,9 +36,9 @@ key_secret='0QndYvbERbFunjlHjOucovUP'
 
 
 import razorpay
+ 
 
-
-# Create your views here.
+# Create your views here. 
 
 def send_email_otp(user):
 
@@ -332,13 +332,13 @@ class CartListView(LoginRequiredMixin,View):
             else:
                 item.total_price = 0  # Handle case where there is no price available
 
-            context={
-                    "data": qs,
-                    "total":total_without_offer,
-                    "discound":discound,
-                    "subtotal": total,
-                    "flavor":selected_flavour,
-                      }
+        context={
+            "data": qs,
+            "total":total_without_offer,
+            "discound":discound,
+            "subtotal": total,
+            "flavor":selected_flavour,
+                }
 
         return render(request, self.template_name,context)
     
